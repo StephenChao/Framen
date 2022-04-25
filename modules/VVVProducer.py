@@ -14,7 +14,7 @@ class VVVProducer(Module):
     def __init__(self , year, MODE = "inclusive" ):
         self.year = year
         self.MODE = MODE
-        self.Process_Genparticles = False
+        self.Process_Genparticles = True
 
     def beginJob(self):
         pass
@@ -254,6 +254,7 @@ class VVVProducer(Module):
         self.out.branch("jetAK8puppi_dnnDecorrTop", "F")
         self.out.branch("jetAK8puppi_dnnDecorrW", "F")
         self.out.branch("jetAK8puppi_dnnDecorrH4q", "F")
+        self.out.branch("jetAK8puppi_dnnDecorrH4q_new", "F")
         self.out.branch("jetAK8puppi_dnnDecorrZ", "F")
         self.out.branch("jetAK8puppi_dnnDecorrZbb", "F")
         self.out.branch("jetAK8puppi_dnnDecorrHbb", "F")
@@ -275,6 +276,7 @@ class VVVProducer(Module):
         self.out.branch("jetAK8puppi_dnnDecorrTop_2", "F")
         self.out.branch("jetAK8puppi_dnnDecorrW_2", "F")
         self.out.branch("jetAK8puppi_dnnDecorrH4q_2", "F")
+        self.out.branch("jetAK8puppi_dnnDecorrH4q_2_new", "F") 
         self.out.branch("jetAK8puppi_dnnDecorrZ_2", "F")
         self.out.branch("jetAK8puppi_dnnDecorrZbb_2", "F")
         self.out.branch("jetAK8puppi_dnnDecorrHbb_2", "F")
@@ -296,6 +298,7 @@ class VVVProducer(Module):
         self.out.branch("jetAK8puppi_dnnDecorrTop_3", "F")
         self.out.branch("jetAK8puppi_dnnDecorrW_3", "F")
         self.out.branch("jetAK8puppi_dnnDecorrH4q_3", "F")
+        self.out.branch("jetAK8puppi_dnnDecorrH4q_3_new", "F")
         self.out.branch("jetAK8puppi_dnnDecorrZ_3", "F")
         self.out.branch("jetAK8puppi_dnnDecorrZbb_3", "F")
         self.out.branch("jetAK8puppi_dnnDecorrHbb_3", "F")
@@ -412,7 +415,7 @@ class VVVProducer(Module):
         # require exact 1 lepton and pt > 55 GeV
         # require 0 lepton now
 
-        if not ((nLooseEle+nLooseMu)==0): return False
+        #if not ((nLooseEle+nLooseMu)==0): return False
         
         # MET and leptonicW
         MET_et=event.MET_pt 
@@ -420,9 +423,9 @@ class VVVProducer(Module):
         Process_1Lepton_Jets(self,event)
 
         Nj8 = ( fatjet1.Pt()>200 ) + ( fatjet2.Pt()>200 ) + ( fatjet3.Pt()>200 )
-        if not ( Nj8 >= 2 ) : return False
-        if not ( ( fatjet1.M()>40 ) | (fatjet2.M()>40) | (fatjet3.M()>40) ): return False
-        if not ( fatjet1.Pt()>400 ): return False
+        #if not ( Nj8 >= 2 ) : return False
+        #if not ( ( fatjet1.M()>40 ) | (fatjet2.M()>40) | (fatjet3.M()>40) ): return False
+        #if not ( fatjet1.Pt()>450 ): return False
         self.out.fillBranch("Nj8", Nj8)
 
         return True
@@ -1271,6 +1274,7 @@ def Process_fatJets(self,nt):
         self.out.fillBranch("jetAK8puppi_dnnDecorrTop", nt.FatJet_deepTagMD_TvsQCD[usenumber3]);
         self.out.fillBranch("jetAK8puppi_dnnDecorrW", nt.FatJet_deepTagMD_WvsQCD[usenumber3]);
         self.out.fillBranch("jetAK8puppi_dnnDecorrH4q", nt.FatJet_deepTagMD_H4qvsQCD[usenumber3]);
+        self.out.fillBranch("jetAK8puppi_dnnDecorrH4q_new", nt.FatJet_deepHWWMDV1_probHww4qvsQCD[usenumber3]);
         self.out.fillBranch("jetAK8puppi_dnnDecorrZ", nt.FatJet_deepTagMD_ZvsQCD[usenumber3]);
         self.out.fillBranch("jetAK8puppi_dnnDecorrZbb", nt.FatJet_deepTagMD_ZbbvsQCD[usenumber3]);
         self.out.fillBranch("jetAK8puppi_dnnDecorrHbb", nt.FatJet_deepTagMD_HbbvsQCD[usenumber3]);
@@ -1314,6 +1318,7 @@ def Process_fatJets(self,nt):
         self.out.fillBranch("jetAK8puppi_dnnDecorrTop_2", nt.FatJet_deepTagMD_TvsQCD[usenumber2]);
         self.out.fillBranch("jetAK8puppi_dnnDecorrW_2", nt.FatJet_deepTagMD_WvsQCD[usenumber2]);
         self.out.fillBranch("jetAK8puppi_dnnDecorrH4q_2", nt.FatJet_deepTagMD_H4qvsQCD[usenumber2]);
+        self.out.fillBranch("jetAK8puppi_dnnDecorrH4q_2_new", nt.FatJet_deepHWWMDV1_probHww4qvsQCD[usenumber2]);
         self.out.fillBranch("jetAK8puppi_dnnDecorrZ_2", nt.FatJet_deepTagMD_ZvsQCD[usenumber2]);
         self.out.fillBranch("jetAK8puppi_dnnDecorrZbb_2", nt.FatJet_deepTagMD_ZbbvsQCD[usenumber2]);
         self.out.fillBranch("jetAK8puppi_dnnDecorrHbb_2", nt.FatJet_deepTagMD_HbbvsQCD[usenumber2]);
@@ -1359,6 +1364,7 @@ def Process_fatJets(self,nt):
         self.out.fillBranch("jetAK8puppi_dnnDecorrW_3", nt.FatJet_deepTagMD_WvsQCD[usenumber1]);
         self.out.fillBranch("jetAK8puppi_dnnDecorrH4q_3", nt.FatJet_deepTagMD_H4qvsQCD[usenumber1]);
         self.out.fillBranch("jetAK8puppi_dnnDecorrZ_3", nt.FatJet_deepTagMD_ZvsQCD[usenumber1]);
+        self.out.fillBranch("jetAK8puppi_dnnDecorrH4q_3_new", nt.FatJet_deepHWWMDV1_probHww4qvsQCD[usenumber1]);
         self.out.fillBranch("jetAK8puppi_dnnDecorrZbb_3", nt.FatJet_deepTagMD_ZbbvsQCD[usenumber1]);
         self.out.fillBranch("jetAK8puppi_dnnDecorrHbb_3", nt.FatJet_deepTagMD_HbbvsQCD[usenumber1]);
         self.out.fillBranch("jetAK8puppi_pt_3", nt.FatJet_pt[usenumber1]);
@@ -1392,6 +1398,7 @@ def Process_fatJets(self,nt):
         self.out.fillBranch("jetAK8puppi_dnnDecorrTop_3", -99)
         self.out.fillBranch("jetAK8puppi_dnnDecorrW_3", -99)
         self.out.fillBranch("jetAK8puppi_dnnDecorrH4q_3", -99)
+        self.out.fillBranch("jetAK8puppi_dnnDecorrH4q_3_new",-99)
         self.out.fillBranch("jetAK8puppi_dnnDecorrZ_3", -99)
         self.out.fillBranch("jetAK8puppi_dnnDecorrZbb_3", -99)
         self.out.fillBranch("jetAK8puppi_dnnDecorrHbb_3", -99)
